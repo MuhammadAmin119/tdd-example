@@ -1,7 +1,7 @@
 class AuthState {
   AuthStatus status;
   String errorText;
-  AuthState({this.status = AuthStatus.intial, this.errorText = "", });
+  AuthState({this.status = AuthStatus.initial, this.errorText = "", });
 }
 
-enum AuthStatus { intial, loading, error, authentificated }
+enum AuthStatus { initial, loading, error, authentificated }

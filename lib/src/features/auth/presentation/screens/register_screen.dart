@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tdd_example/src/features/otp/presentation/screens/otp_screen.dart';
-import '../cubit/auht_cubit.dart';
+import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
 
 class RegisterScreen extends StatefulWidget {

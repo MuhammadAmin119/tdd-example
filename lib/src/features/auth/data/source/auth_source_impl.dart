@@ -29,7 +29,11 @@ class AuthSourceImpl extends AuthSource {
         print(
           '✅ [login] SUCCESS — status: ${response.statusCode}, body: ${response.data}',
         );
-        return Right(response.data['token']);
+
+        StorageService.write('refresh', response.data['tokens']['access']);
+        StorageService.write('access', response.data['tokens']['refresh']);
+
+        return Right(response.data['tokens']);
       } else {
         print(
           '❌ [login] FAILED — status: ${response.statusCode}, body: ${response.data}',

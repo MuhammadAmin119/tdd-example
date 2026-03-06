@@ -5,7 +5,7 @@ import 'package:tdd_example/src/features/auth/data/repository/auth_repository_im
 import 'package:tdd_example/src/features/auth/data/source/auth_source_impl.dart';
 import 'package:tdd_example/src/features/auth/domain/usecase/auth_login_usecase.dart';
 import 'package:tdd_example/src/features/auth/domain/usecase/auth_register_usecase.dart';
-import 'package:tdd_example/src/features/auth/presentation/cubit/auht_cubit.dart';
+import 'package:tdd_example/src/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:tdd_example/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:tdd_example/src/features/auth/presentation/screens/register_screen.dart';
 import 'package:tdd_example/src/features/home/screens/home_screen.dart';
