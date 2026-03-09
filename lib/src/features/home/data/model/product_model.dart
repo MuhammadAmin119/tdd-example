@@ -21,7 +21,7 @@ class ProductModel {
         name: json["name"]?? '',
         description: json["description"]?? '',
         price: json["price"] ??'',
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x)))?? [],
+        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))), //?? [],
         createdAt: DateTime.parse(json["created_at"]),
     );
 
