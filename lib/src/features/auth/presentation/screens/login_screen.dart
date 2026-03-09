@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tdd_example/src/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:tdd_example/src/features/auth/presentation/screens/register_screen.dart';
 import '../cubit/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,7 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: primaryColor,
-                content: Text('Login successful!', style: TextStyle(color: Colors.white)),
+                content: Text(
+                  'Login successful!',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             );
           }
@@ -48,12 +52,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: accentColor,
-                content: Text(state.errorText, style: TextStyle(color: Colors.white)),
+                content: Text(
+                  state.errorText,
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             );
           }
         },
-        builder: (context, state) { 
+        builder: (context, state) {
           return Center(
             child: SingleChildScrollView(
               padding: EdgeInsets.all(24),
@@ -64,7 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: isDark
                       ? []
-                      : [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, 4))],
+                      : [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 10,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -85,15 +98,38 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: 'UserName',
                         labelStyle: TextStyle(color: hintColor),
                         filled: true,
-                        fillColor: isDark ? Color(0xFF2A2A2A) : Color(0xFFF0F2F5),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        fillColor: isDark
+                            ? Color(0xFF2A2A2A)
+                            : Color(0xFFF0F2F5),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: primaryColor, width: 2),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Don\'t have an account ?',
+                        style: GoogleFonts.merriweather(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     TextField(
                       controller: _passwordController,
                       obscureText: true,
@@ -102,8 +138,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: 'Password',
                         labelStyle: TextStyle(color: hintColor),
                         filled: true,
-                        fillColor: isDark ? Color(0xFF2A2A2A) : Color(0xFFF0F2F5),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        fillColor: isDark
+                            ? Color(0xFF2A2A2A)
+                            : Color(0xFFF0F2F5),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: primaryColor, width: 2),
@@ -130,7 +170,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: Text('Login', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                   ],

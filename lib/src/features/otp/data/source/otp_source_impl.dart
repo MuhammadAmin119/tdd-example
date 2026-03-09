@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:tdd_example/src/core/config/dio_config.dart';
 import 'package:tdd_example/src/core/utils/either/either.dart';
 import 'package:tdd_example/src/core/utils/failure/failure.dart';
 import 'package:tdd_example/src/core/utils/services/storage_service.dart';
@@ -25,16 +26,15 @@ class OtpSourceImpl extends OtpSource {
 
     print('│ [OtpSource] Parsed email → $email');
     print('│ [OtpSource] Parsed code  → $code');
-    print('│ [OtpSource] Sending POST → https://api-service.fintechhub.uz/otp-verify/');
+    print(
+      '│ [OtpSource] Sending POST → https://api-service.fintechhub.uz/otp-verify/',
+    );
     print('└─────────────────────────────────────────');
 
     try {
-      final response = await client.post(
-        'https://api-service.fintechhub.uz/otp-verify/',
-        data: {
-          "email": email,
-          "code": code,
-        },
+      final response = await DioConfig.client.post(
+        '/otp-verify/',
+        data: {"email": email, "code": code},
       );
 
       print('┌─────────────────────────────────────────');
@@ -46,8 +46,12 @@ class OtpSourceImpl extends OtpSource {
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         print('┌─────────────────────────────────────────');
         print('│ [OtpSource] ✅ Success — saving tokens');
-        print('│ [OtpSource] Access token  → ${response.data['tokens']['access']}');
-        print('│ [OtpSource] Refresh token → ${response.data['tokens']['refresh']}');
+        print(
+          '│ [OtpSource] Access token  → ${response.data['tokens']['access']}',
+        );
+        print(
+          '│ [OtpSource] Refresh token → ${response.data['tokens']['refresh']}',
+        );
         print('└─────────────────────────────────────────');
 
         StorageService.write('refresh', response.data['tokens']['refresh']);
@@ -59,21 +63,20 @@ class OtpSourceImpl extends OtpSource {
 
       print('[OtpSource] ❌ Unexpected status code → ${response.statusCode}');
       throw DioException(requestOptions: response.requestOptions);
-
     } on TimeoutException catch (e) {
       print('┌─────────────────────────────────────────');
       print('│ [OtpSource] ⏱ TimeoutException caught');
       print('│ [OtpSource] Message → ${e.message}');
       print('└─────────────────────────────────────────');
-      return Left(Failure(message: e.message ?? 'Time is up or server is down'));
-
+      return Left(
+        Failure(message: e.message ?? 'Time is up or server is down'),
+      );
     } on SocketException catch (e) {
       print('┌─────────────────────────────────────────');
       print('│ [OtpSource] 🌐 SocketException caught');
       print('│ [OtpSource] Message → ${e.message}');
       print('└─────────────────────────────────────────');
       return Left(Failure(message: e.message));
-
     } on DioException catch (e) {
       print('┌─────────────────────────────────────────');
       print('│ [OtpSource] 🔴 DioException caught');
@@ -82,7 +85,6 @@ class OtpSourceImpl extends OtpSource {
       print('│ [OtpSource] Message → ${e.message}');
       print('└─────────────────────────────────────────');
       return Left(Failure(message: e.message ?? 'Something went wrong'));
-
     } catch (e) {
       print('┌─────────────────────────────────────────');
       print('│ [OtpSource] 💥 Unknown error caught');

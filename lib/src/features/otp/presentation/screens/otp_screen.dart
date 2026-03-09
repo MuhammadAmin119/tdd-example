@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
-import 'package:tdd_example/src/features/home/screens/home_screen.dart';
+import 'package:tdd_example/src/features/home/presentation/screens/home_screen.dart';
 import 'package:tdd_example/src/features/otp/presentation/cubit/otp_cubit.dart';
 import 'package:tdd_example/src/features/otp/presentation/cubit/otp_state.dart';
 

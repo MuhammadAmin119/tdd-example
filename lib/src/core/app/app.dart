@@ -8,7 +8,8 @@ import 'package:tdd_example/src/features/auth/domain/usecase/auth_login_usecase.
 import 'package:tdd_example/src/features/auth/domain/usecase/auth_register_usecase.dart';
 import 'package:tdd_example/src/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:tdd_example/src/features/auth/presentation/screens/login_screen.dart';
-import 'package:tdd_example/src/features/home/screens/home_screen.dart';
+import 'package:tdd_example/src/features/auth/presentation/screens/register_screen.dart';
+import 'package:tdd_example/src/features/home/presentation/screens/home_screen.dart';
 import 'package:tdd_example/src/features/otp/data/repository/otp_repository_impl.dart';
 import 'package:tdd_example/src/features/otp/data/source/otp_source_impl.dart';
 import 'package:tdd_example/src/features/otp/domain/usecase/otp_confirm_usecase.dart';

@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:tdd_example/src/core/config/dio_config.dart';
 import 'package:tdd_example/src/core/utils/either/either.dart';
 import 'package:tdd_example/src/core/utils/failure/failure.dart';
 import 'package:tdd_example/src/core/utils/services/storage_service.dart';
 import 'package:tdd_example/src/features/auth/data/source/auth_source.dart';
 
 class AuthSourceImpl extends AuthSource {
-  final Dio client = Dio();
+
 
   @override
   Future<Either<Failure, String>> login({
@@ -18,8 +19,8 @@ class AuthSourceImpl extends AuthSource {
     try {
       print('📡 [login] Sending POST to /api-service.fintechhub.uz/login/...');
 
-      final Response response = await client.post(
-        'https://api-service.fintechhub.uz/login/',
+      final Response response = await DioConfig.client.post(
+        '/login/',
         data: userInfo,
       );
       print(
@@ -59,8 +60,8 @@ class AuthSourceImpl extends AuthSource {
   }) async {
     try {
       print('🔐 [register] START — userInfo: $userInfo');
-      final response = await client.post(
-        'https://api-service.fintechhub.uz/register/',
+      final response = await DioConfig.client.post(
+         '/register/',
         data: userInfo,
       );
       print(
