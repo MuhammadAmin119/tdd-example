@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:tdd_example/src/core/config/dio_config.dart';
 import 'package:tdd_example/src/core/utils/either/either.dart';
 import 'package:tdd_example/src/core/utils/failure/failure.dart';
 import 'package:tdd_example/src/features/home/data/model/product_model.dart';
 import 'package:tdd_example/src/features/home/data/source/home_source.dart';
 
 class HomeSourceImpl extends HomeSource {
-  
   @override
   Future<Either<Failure, ProductModel>> getProducts() async {
     try {
@@ -22,7 +19,9 @@ class HomeSourceImpl extends HomeSource {
       }
     } on TimeoutException catch (e) {
       print('TIMEOUT: ${e.message}');
-      return Left(Failure(message: e.message ?? 'Server is down or slow connection !'));
+      return Left(
+        Failure(message: e.message ?? 'Server is down or slow connection !'),
+      );
     } on SocketException catch (e) {
       print('SOCKET: ${e.message}');
       return Left(Failure(message: e.message));
