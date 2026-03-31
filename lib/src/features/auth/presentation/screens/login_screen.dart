@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tdd_example/src/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:tdd_example/src/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:tdd_example/src/features/auth/presentation/bloc/auth_event.dart';
+import 'package:tdd_example/src/features/auth/presentation/bloc/auth_state.dart';
 import 'package:tdd_example/src/features/auth/presentation/screens/register_screen.dart';
-import '../cubit/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -35,9 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: BlocConsumer<AuthCubit, AuthState>(
+      body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.status == AuthStatus.authentificated) {
+          if (state.status == AuthStatus.codeSent) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: primaryColor,
@@ -158,9 +159,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                context.read<AuthCubit>().login(
-                                  username: _usernameController.text.trim(),
-                                  password: _passwordController.text.trim(),
+                                context.read<AuthBloc>().add(
+                                  AuthLoginEvent(
+                                    password: _passwordController.text,
+                                    username: _usernameController.text,
+                                  ),
                                 );
                               },
                               style: ElevatedButton.styleFrom(

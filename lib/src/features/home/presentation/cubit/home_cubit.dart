@@ -10,7 +10,7 @@ import 'package:tdd_example/src/features/home/presentation/cubit/home_state.dart
 class HomeCubit extends Cubit<HomeState> {
   final GetProductsUsecase getProductsUsecase;
 
-  HomeCubit(this.getProductsUsecase) : super(HomeState());
+  HomeCubit({required this.getProductsUsecase}) : super(HomeState());
 
   Future<void> getProducts() async {
     try {

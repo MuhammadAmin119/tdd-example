@@ -13,7 +13,7 @@ class HomeSourceImpl extends HomeSource {
   @override
   Future<Either<Failure, ProductModel>> getProducts() async {
     try {
-      final res = await DioConfig.client.get('/products/');
+      final res = await Dio().get('http://127.0.0.1:8000/products/');
       print('STATUS: ${res.statusCode} | DATA: ${res.data}');
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         return Right(res.data);

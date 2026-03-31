@@ -2,15 +2,16 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:tdd_example/main.dart';
 import 'package:tdd_example/src/core/config/dio_config.dart';
 import 'package:tdd_example/src/core/utils/either/either.dart';
 import 'package:tdd_example/src/core/utils/failure/failure.dart';
 import 'package:tdd_example/src/core/utils/services/storage_service.dart';
 import 'package:tdd_example/src/features/auth/data/source/auth_source.dart';
+import 'package:toastification/toastification.dart';
 
 class AuthSourceImpl extends AuthSource {
-
-
   @override
   Future<Either<Failure, String>> login({
     required Map<String, dynamic> userInfo,
@@ -61,7 +62,7 @@ class AuthSourceImpl extends AuthSource {
     try {
       print('🔐 [register] START — userInfo: $userInfo');
       final response = await DioConfig.client.post(
-         '/register/',
+        '/register/',
         data: userInfo,
       );
       print(
@@ -70,6 +71,12 @@ class AuthSourceImpl extends AuthSource {
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         print(
           '✅ [register] SUCCESS — status: ${response.statusCode}, body: ${response.data}',
+        );
+        toastification.show(
+          context: globalKey.currentContext,
+          type: ToastificationType.info,
+          title: Text('Your code :${response.data['otp']},'),
+          autoCloseDuration:  Duration(seconds: 7),
         );
         return Right(response.data['otp']);
       } else {

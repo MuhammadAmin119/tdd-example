@@ -6,7 +6,7 @@ import 'package:tdd_example/src/features/home/data/repository/home_repository_im
 
 class GetProductsUsecase extends UseCase<ProductModel, NoParams> {
   HomeRepositoryImpl homeRepositoryImpl;
-  GetProductsUsecase(this.homeRepositoryImpl);
+  GetProductsUsecase({required this.homeRepositoryImpl});
   @override
   Future<Either<Failure, ProductModel>> call(params) async{
     return await homeRepositoryImpl.getProducts();

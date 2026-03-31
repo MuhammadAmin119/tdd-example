@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tdd_example/src/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:tdd_example/src/features/auth/presentation/bloc/auth_event.dart';
+import 'package:tdd_example/src/features/auth/presentation/bloc/auth_state.dart';
 import 'package:tdd_example/src/features/otp/presentation/screens/otp_screen.dart';
-import '../cubit/auth_cubit.dart';
-import '../cubit/auth_state.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -45,9 +46,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.status == AuthStatus.authentificated) {
+          if (state.status == AuthStatus.codeSent) {
             Navigator.pop(context);
           }
 
@@ -175,15 +176,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   SizedBox(height: 30),
 
-                  BlocConsumer<AuthCubit, AuthState>(
+                  BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
-                      if (state.status == AuthStatus.authentificated) {
+                      if (state.status == AuthStatus.codeSent) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OtpScreen(
-                              email: _emailController.text.trim(),
-                            ),
+                            builder: (context) =>
+                                OtpScreen(email: _emailController.text.trim()),
                           ),
                         );
                       } else if (state.status == AuthStatus.error) {
@@ -213,10 +213,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     );
                                     return;
                                   } else {
-                                    context.read<AuthCubit>().register(
-                                      username: _fullnameController.text.trim(),
-                                      email: _emailController.text.trim(),
-                                      password: _passwordController.text.trim(),
+                                    context.read<AuthBloc>().add(
+                                      AuthRegisterEvent(
+                                        username: _fullnameController.text
+                                            .trim(),
+                                        email: _emailController.text.trim(),
+                                        password: _passwordController.text
+                                            .trim(),
+                                      ),
                                     );
                                   }
                                 },

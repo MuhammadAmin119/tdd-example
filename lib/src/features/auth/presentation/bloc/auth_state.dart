@@ -4,4 +4,4 @@ class AuthState {
   AuthState({this.status = AuthStatus.initial, this.errorText = "", });
 }
 
-enum AuthStatus { initial, loading, error, authentificated }
+enum AuthStatus { initial, loading, error, codeSent }
