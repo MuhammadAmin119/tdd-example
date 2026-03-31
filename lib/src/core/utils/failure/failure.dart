@@ -43,6 +43,7 @@ class IOFailure extends Failure {
   final String errorMessage;
 
   const IOFailure({this.errorMessage = ''})
+    // ignore: dead_null_aware_expression, dead_code
     : super(message: errorMessage ?? '');
 }
 
